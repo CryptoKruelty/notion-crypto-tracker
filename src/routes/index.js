@@ -1,3 +1,4 @@
+const axiosRetry = require('axios-retry');
 const axios = require('axios');
 const routes = require('express').Router();
 const cron = require('node-cron');
@@ -7,6 +8,8 @@ const bscScanRouter = require('./bscScan.js');
 const notionRouter = require('./notion.js');
 
 const { KYOTOPROTOCOL_CONTRACT } = require('../contracts.js');
+
+axiosRetry(axios, { retries: 3 });
 
 routes.use('/cmc', cmcRouter);
 routes.use('/bscScan', bscScanRouter);
@@ -48,6 +51,7 @@ const start = async () => {
     console.log(notionData);
   } catch (error) {
     console.log(error);
+    return errorHandler();
   }
 };
 

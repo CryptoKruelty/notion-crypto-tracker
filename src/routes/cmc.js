@@ -26,7 +26,9 @@ router.get(`/:slug/:currency`, async (req, res) => {
     );
     const { name, quote } = data.data[slug]; // We may add more properties, but these are the ones I need to be minimal
     const { price } = quote[currency];
-    console.log({ name, price });
+    if (typeof name === 'undefined' || typeof price === 'undefined') {
+      return res.status(404).send('Not found');
+    }
     return res.json({ name, price });
   } catch (error) {
     return res.send(error);
