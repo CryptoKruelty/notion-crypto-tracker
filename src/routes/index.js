@@ -28,13 +28,13 @@ const start = async () => {
   console.log('Script started!');
   try {
     const { data: cmcData } = await axios.get(api + `/cmc/${slug}/${currency}`);
-    console.log('Phase 1: CMC data retrieved');
     const { name, price } = cmcData;
+    console.log(`Phase 1: CMC data processed: ${name} - ${price}`);
     const { data: bscScanData } = await axios.get(
       api + `/bscScan/${contract}/${walleltAddress}`
     );
-    console.log('Phase 2: BSC Scan data retrieved');
     const { amountOfToken } = bscScanData;
+    console.log(`Phase 2: BSCScan data processed: ${amountOfToken}`);
     const { data: notionData } = await axios.post(api + '/notion/insert', {
       cmcData: {
         name,
