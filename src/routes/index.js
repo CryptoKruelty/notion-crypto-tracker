@@ -21,13 +21,15 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const currency = 'EUR';
-const { slug, contract, decimals } = KYOTOPROTOCOL_CONTRACT;
+const { slug, contract, decimals, id } = KYOTOPROTOCOL_CONTRACT;
 const walleltAddress = process.env.BSC_WALLET;
 
 const start = async () => {
   console.log('Script started!');
   try {
-    const { data: cmcData } = await axios.get(api + `/cmc/${slug}/${currency}`);
+    const { data: cmcData } = await axios.get(
+      api + `/cmc/${slug}/${currency}/${id}`
+    );
     const { name, price } = cmcData;
     console.log(`Phase 1: CMC data processed: ${name} - ${price}`);
     const { data: bscScanData } = await axios.get(
@@ -45,10 +47,9 @@ const start = async () => {
         amountOfToken: amountOfToken / Math.pow(10, decimals) // Notion doens't have float precision, so even thought Javascript is not good with it, neither is Notion.
       }
     });
-    console.log(notionData);
+    return console.log(notionData);
   } catch (error) {
-    console.log(error);
-    return errorHandler();
+    return console.log(error);
   }
 };
 

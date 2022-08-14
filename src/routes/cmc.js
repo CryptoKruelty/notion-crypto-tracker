@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Search token by CMC slug, converting into desired currency
-router.get(`/:slug/:currency`, async (req, res) => {
+router.get(`/:slug/:currency/:id`, async (req, res) => {
   const { slug, currency, id } = req.params;
   try {
     const { data } = await axios.get(
@@ -25,6 +25,7 @@ router.get(`/:slug/:currency`, async (req, res) => {
       }
     );
     // test will break because the freaking API sandbox returns data in a different format, so I changed things for production
+    console.log(data[id]);
     const { name, quote } = data[id]; // We may add more properties, but these are the ones I need to be minimal
     const { price } = quote[currency];
     return res.json({ name, price });
