@@ -2,8 +2,6 @@ require('dotenv').config();
 const router = require('express').Router();
 const axios = require('axios');
 
-axiosRetry(axios, { retries: 3 });
-
 if (process.env.NODE_ENV === 'production') {
   api = process.env.API_URL;
   cmcKey = process.env.CMC_API_KEY;
