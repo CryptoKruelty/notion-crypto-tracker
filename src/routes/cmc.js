@@ -1,7 +1,6 @@
 require('dotenv').config();
 const router = require('express').Router();
 const axios = require('axios');
-const axiosRetry = require('axios-retry');
 
 axiosRetry(axios, { retries: 3 });
 
