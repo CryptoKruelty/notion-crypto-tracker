@@ -26,6 +26,7 @@ router.get(`/:slug/:currency`, async (req, res) => {
     );
     const { name, quote } = data.data[slug]; // We may add more properties, but these are the ones I need to be minimal
     const { price } = quote[currency];
+    console.log({ name, price });
     return res.json({ name, price });
   } catch (error) {
     return res.send(error);
