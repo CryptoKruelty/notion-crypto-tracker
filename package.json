@@ -1,0 +1,35 @@
+{
+  "name": "notion-crypto-tracker",
+  "version": "1.0.0",
+  "description": "A node.js app that tracks crypto prices and wallets, making a summary of them into Notion",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "echo \"Operation not yet supported\""
+  },
+  "keywords": [
+    "CoinMarketCap",
+    "Notion",
+    "Crypto",
+    "Tracker",
+    "Node.js",
+    "API"
+  ],
+  "author": "github.com/caioluis",
+  "license": "ISC",
+  "dependencies": {
+    "@notionhq/client": "^2.1.1",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "node-cron": "^3.0.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.22.0",
+    "eslint-config-eslint": "^7.0.0",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-node": "^11.1.0",
+    "prettier": "^2.7.1"
+  }
+}
