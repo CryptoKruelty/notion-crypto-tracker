@@ -56,7 +56,7 @@ router.post('/insert', async (req, res) => {
     // if there's already a database page name, update the existing one
     const pageId = page.results[0].id;
     await notion.pages.update({
-      id: pageId,
+      page_id: pageId,
       properties: {
         'Current Price': {
           number: price

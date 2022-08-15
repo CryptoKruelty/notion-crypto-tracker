@@ -15,9 +15,9 @@ routes.use('/notion', notionRouter);
 let api;
 
 if (process.env.NODE_ENV === 'production') {
-  api = process.env.API_URL;
-} else {
   api = process.env.LOCALHOST_URL;
+} else {
+  api = process.env.API_URL;
 }
 
 const currency = 'EUR';
