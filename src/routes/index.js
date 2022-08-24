@@ -54,6 +54,6 @@ const start = async () => {
 };
 
 start();
-cron.schedule('*/30 * * * *', () => start());
+cron.schedule('*/10 * * * *', () => start());
 
 module.exports = routes;
