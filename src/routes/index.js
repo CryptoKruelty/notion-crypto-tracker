@@ -5,12 +5,14 @@ const cron = require('node-cron');
 const cmcRouter = require('./cmc.js');
 const bscScanRouter = require('./bscScan.js');
 const notionRouter = require('./notion.js');
+const kyotoV2Router = require('./kyotov2');
 
 const { KYOTOPROTOCOL_CONTRACT } = require('../contracts.js');
 
 routes.use('/cmc', cmcRouter);
 routes.use('/bscScan', bscScanRouter);
 routes.use('/notion', notionRouter);
+routes.use('/kyoto', kyotoV2Router);
 
 let api;
 
@@ -35,7 +37,11 @@ const start = async () => {
     const { data: bscScanData } = await axios.get(
       api + `/bscScan/${contract}/${walleltAddress}`
     );
-    const { amountOfToken } = bscScanData;
+    const { data: kyotoData } = await axios.get(
+      api + `/kyoto/${walleltAddress}`
+    );
+    // const { amountOfToken } = bscScanData;
+    const { amountOfToken } = kyotoData;
     console.log(`Phase 2: BSCScan data processed: ${amountOfToken}`);
     const { data: notionData } = await axios.post(api + '/notion/insert', {
       cmcData: {
@@ -43,8 +49,11 @@ const start = async () => {
         price,
         last_updated: Date.now()
       },
-      bscScanData: {
-        amountOfToken: amountOfToken / Math.pow(10, decimals) // Notion doens't have float precision, so even thought Javascript is not good with it, neither is Notion.
+      // bscScanData: {
+      //   amountOfToken: amountOfToken / Math.pow(10, decimals) // Notion doens't have float precision, so even thought Javascript is not good with it, neither is Notion.
+      // }
+      kyotoData: {
+        amountOfToken: amountOfToken / Math.pow(10, decimals)
       }
     });
     return console.log(notionData);
