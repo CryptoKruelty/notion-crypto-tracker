@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const currency = 'EUR';
 const { slug, contract, decimals, id } = KYOTOPROTOCOL_CONTRACT;
-const walleltAddress = process.env.BSC_WALLET;
+const walletAddress = process.env.BSC_WALLET;
 
 const start = async () => {
   console.log('Script started!');
@@ -34,13 +34,12 @@ const start = async () => {
     );
     const { name, price } = cmcData;
     console.log(`Phase 1: CMC data processed: ${name} - ${price}`);
-    const { data: bscScanData } = await axios.get(
-      api + `/bscScan/${contract}/${walleltAddress}`
-    );
+    // const { data: bscScanData } = await axios.get(
+    //   api + `/bscScan/${contract}/${walleltAddress}`
+    // );
     const { data: kyotoData } = await axios.get(
-      api + `/kyoto/${walleltAddress}`
+      api + `/kyoto/${walletAddress}`
     );
-    // const { amountOfToken } = bscScanData;
     const { amountOfToken } = kyotoData;
     console.log(`Phase 2: BSCScan data processed: ${amountOfToken}`);
     const { data: notionData } = await axios.post(api + '/notion/insert', {
