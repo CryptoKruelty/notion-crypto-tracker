@@ -12,10 +12,12 @@ const notion = new Client({
 const databaseId = process.env.NOTION_DATABASE;
 
 router.post('/insert', async (req, res) => {
-  const { cmcData, bscScanData } = req.body;
+  const { cmcData, kyotoData } = req.body; //, bscScanData
   const { name, price } = cmcData;
-  const { amountOfToken } = bscScanData;
-  const bagValue = amountOfToken * price;
+  // const { amountOfToken } = bscScanData;
+  const { amountOfToken } = kyotoData;
+  // const bagValue = amountOfToken * price;
+  const bagValue = amountOfToken * 0.330753316;
   try {
     // if there's not database page name, create a new one
     const page = await notion.databases.query({
@@ -43,6 +45,9 @@ router.post('/insert', async (req, res) => {
           'Current Price': {
             number: price
           },
+          'Price at L1 Launch': {
+            number: 0.330753316
+          },
           'Amount of Token': {
             number: amountOfToken
           },
@@ -60,6 +65,9 @@ router.post('/insert', async (req, res) => {
       properties: {
         'Current Price': {
           number: price
+        },
+        'Price at L1 Launch': {
+          number: 0.330753316
         },
         'Amount of Token': {
           number: amountOfToken
