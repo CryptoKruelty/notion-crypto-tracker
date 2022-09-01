@@ -52,7 +52,7 @@ const start = async () => {
       //   amountOfToken: amountOfToken / Math.pow(10, decimals) // Notion doens't have float precision, so even thought Javascript is not good with it, neither is Notion.
       // }
       kyotoData: {
-        amountOfToken: amountOfToken / Math.pow(10, decimals)
+        amountOfToken
       }
     });
     return console.log(notionData);
